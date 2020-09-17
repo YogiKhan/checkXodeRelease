@@ -32,7 +32,7 @@ public class xcodeVersion {
                 if(line == null){
                     break;
                 }else{
-                    if(line[29].equals("true")) {
+                    if(line[26].equals("true")) {
                         resultstokeep=resultstokeep+1;
                         sb.append("xcodeversion = " + line[24] +"\n");
                         sb.append("Release date = " + line[2] + "-" + line[0] + "-" + line[1] +"\n");
@@ -87,7 +87,18 @@ public class xcodeVersion {
                         compareXcodeVersion.VersionStr vs1 = new compareXcodeVersion.VersionStr(version);
                         compareXcodeVersion.VersionStr vs2 = new compareXcodeVersion.VersionStr(line[24]);
                         int result = vs2.compareTo(vs1);
-                        if (result == 0) {
+                        if (result == 0 && !line[26].equals("true")) {
+                            resultstokeep=resultstokeep+1;
+                            sb.append("xcodeversion = " + line[24] + "\n");
+                            sb.append("Release date = " + line[2] + "-" + line[0] + "-" + line[1] + "\n");
+                            if (!line[28].equals("")) {
+                                sb.append("Is GM ? = " + line[28] + "\n");
+                            }
+                            sb.append("DownloadURL = " + line[4] + "\n");
+                            sb.append("RequireOS = " + line[27] + "\n");
+                            sb.append("Build Number = " + line[25] + "\n");
+                        }
+                        else if (result == 1 && !line[26].equals("true")) {
                             resultstokeep=resultstokeep+1;
                             sb.append("xcodeversion = " + line[24] + "\n");
                             sb.append("Release date = " + line[2] + "-" + line[0] + "-" + line[1] + "\n");
